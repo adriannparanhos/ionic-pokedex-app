@@ -7,25 +7,25 @@ export const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
+        path: 'pokedex',
         loadComponent: () =>
           import('../pokemon-list/pokemon-list.page').then((m) => m.PokemonListPage),
       },
       {
-        path: 'tab2',
+        path: 'favorites',
         loadComponent: () =>
           import('../favorites/favorites.page').then((m) => m.FavoritesPage),
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/pokedex',
         pathMatch: 'full',
       },
     ],
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/pokedex',
     pathMatch: 'full',
   },
 ];
