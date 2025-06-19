@@ -1,20 +1,50 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { ActivatedRoute } from '@angular/router';
+import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonGrid, IonRow, IonCol, IonChip, IonLabel, IonBadge, IonProgressBar, IonIcon, IonButton } from '@ionic/angular/standalone';
+import { PokemonDetails } from 'src/app/interfaces/pokemon.interface';
+import { FavoritesService } from 'src/app/services/favorites.service';
+import { PokemonService } from 'src/app/services/pokemon.service';
 
 @Component({
   selector: 'app-pokemon-details',
   templateUrl: './pokemon-details.page.html',
   styleUrls: ['./pokemon-details.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [CommonModule, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonGrid, IonRow, IonCol, IonChip, IonLabel, IonBadge, IonProgressBar, IonIcon, IonButton]
 })
 export class PokemonDetailsPage implements OnInit {
+  pokemon: PokemonDetails | null = null;
+  isFavorite = false;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private pokemonService: PokemonService,
+    private favoritesService: FavoritesService
+  ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.favoritesService.init();
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.pokemonService.getPokemonDetails(id).subscribe(details => {
+        this.pokemon = details;
+        this.checkFavoriteStatus();
+      });
+    }
   }
 
+  checkFavoriteStatus() {
+    if (this.pokemon) {
+      this.isFavorite = this.favoritesService.isFavorite(this.pokemon.id);
+    }
+  }
+
+  toggleFavorite() {
+    if (this.pokemon) {
+      this.favoritesService.toggleFavorite(this.pokemon.id).then(() => {
+        this.checkFavoriteStatus();
+      });
+    }
+  }
 }

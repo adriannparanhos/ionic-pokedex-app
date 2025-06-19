@@ -1,13 +1,73 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>pokemon-details</ion-title>
+<ion-header>
+  <ion-toolbar [color]="pokemon!.types[0].type.name">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">{{ pokemon?.name }}</ion-title>
+    <ion-buttons slot="end">
+       <ion-button (click)="toggleFavorite()">
+        <ion-icon [name]="isFavorite ? 'star' : 'star-outline'" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">pokemon-details</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div *ngIf="pokemon" class="ion-padding">
+    <ion-card class="ion-text-center">
+       <img [src]="pokemon.sprites.other['official-artwork'].front_default" alt="{{ pokemon.name }} image" />
+      <ion-card-header>
+        <ion-card-title class="ion-text-capitalize">#{{ pokemon.id }} {{ pokemon.name }}</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Detalhes</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6"><strong>Altura:</strong> {{ pokemon.height / 10 }} m</ion-col>
+            <ion-col size="6"><strong>Peso:</strong> {{ pokemon.weight / 10 }} kg</ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+    
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Tipos</ion-card-title>
+      </ion-card-header>
+       <ion-card-content>
+          <ion-chip *ngFor="let t of pokemon.types" [color]="t.type.name" class="ion-text-capitalize">
+            <ion-label>{{ t.type.name }}</ion-label>
+          </ion-chip>
+       </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Habilidades</ion-card-title>
+      </ion-card-header>
+       <ion-card-content class="ion-text-capitalize">
+        <p *ngFor="let a of pokemon.abilities">
+          {{ a.ability.name }} <ion-badge *ngIf="a.is_hidden" color="tertiary">Oculta</ion-badge>
+        </p>
+       </ion-card-content>
+    </ion-card>
+
+     <ion-card>
+      <ion-card-header>
+        <ion-card-title>Estatísticas Base</ion-card-title>
+      </ion-card-header>
+       <ion-card-content>
+        <div *ngFor="let s of pokemon.stats" class="ion-text-capitalize">
+          <ion-label>{{ s.stat.name }}: {{ s.base_stat }}</ion-label>
+          <ion-progress-bar [value]="s.base_stat / 255" [color]="pokemon!.types[0].type.name"></ion-progress-bar>
+        </div>
+       </ion-card-content>
+    </ion-card>
+
+  </div>
 </ion-content>

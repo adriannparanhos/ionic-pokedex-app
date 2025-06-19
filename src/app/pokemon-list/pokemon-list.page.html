@@ -1,17 +1,29 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
-      Tab 1
+      Pokédex
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-list>
+    <ion-item *ngFor="let pokemon of pokemons" [routerLink]="['/details', pokemon.id]" lines="full">
+      <ion-avatar slot="start">
+        <img [src]="pokemon.image" />
+      </ion-avatar>
+      <ion-label class="ion-text-capitalize">
+        <h2>{{ pokemon.name }}</h2>
+        <p>#{{ pokemon.id.toString().padStart(3, '0') }}</p>
+      </ion-label>
+      <ion-button fill="clear" slot="end" (click)="toggleFavorite(pokemon, $event)">
+        <ion-icon [name]="isFavorite(pokemon.id) ? 'star' : 'star-outline'" [color]="isFavorite(pokemon.id) ? 'warning' : 'medium'"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando mais Pokémon...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
