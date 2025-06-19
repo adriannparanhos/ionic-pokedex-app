@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonAvatar, IonLabel, IonButton, IonIcon, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonAvatar, IonLabel, IonButton, IonIcon, IonInfiniteScroll, IonInfiniteScrollContent, IonCol, IonRow, IonGrid } from '@ionic/angular/standalone';
 import { PokemonListItem } from '../interfaces/pokemon.interface';
 import { FavoritesService } from '../services/favorites.service';
 import { PokemonService } from '../services/pokemon.service';
@@ -11,7 +11,7 @@ import { PokemonService } from '../services/pokemon.service';
   templateUrl: 'pokemon-list.page.html',
   styleUrls: ['pokemon-list.page.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonAvatar, IonLabel, IonButton, IonIcon, IonInfiniteScroll, IonInfiniteScrollContent],
+  imports: [IonGrid, IonRow, IonCol, CommonModule, RouterModule, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonAvatar, IonLabel, IonButton, IonIcon, IonInfiniteScroll, IonInfiniteScrollContent],
 })
 export class PokemonListPage implements OnInit {
   @ViewChild(IonInfiniteScroll) infiniteScroll!: IonInfiniteScroll;

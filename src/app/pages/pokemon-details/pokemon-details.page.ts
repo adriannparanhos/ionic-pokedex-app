@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonGrid, IonRow, IonCol, IonChip, IonLabel, IonBadge, IonProgressBar, IonIcon, IonButton } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonGrid, IonRow, IonCol, IonChip, IonLabel, IonBadge, IonProgressBar, IonIcon, IonButton, IonSpinner } from '@ionic/angular/standalone';
 import { PokemonDetails } from 'src/app/interfaces/pokemon.interface';
 import { FavoritesService } from 'src/app/services/favorites.service';
 import { PokemonService } from 'src/app/services/pokemon.service';
@@ -11,7 +11,7 @@ import { PokemonService } from 'src/app/services/pokemon.service';
   templateUrl: './pokemon-details.page.html',
   styleUrls: ['./pokemon-details.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonGrid, IonRow, IonCol, IonChip, IonLabel, IonBadge, IonProgressBar, IonIcon, IonButton]
+  imports: [IonSpinner, CommonModule, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonGrid, IonRow, IonCol, IonChip, IonLabel, IonBadge, IonProgressBar, IonIcon, IonButton]
 })
 export class PokemonDetailsPage implements OnInit {
   pokemon: PokemonDetails | null = null;

@@ -6,24 +6,32 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-list>
-    <ion-item *ngFor="let pokemon of pokemons" [routerLink]="['/details', pokemon.id]" lines="full">
-      <ion-avatar slot="start">
-        <img [src]="pokemon.image" />
-      </ion-avatar>
-      <ion-label class="ion-text-capitalize">
-        <h2>{{ pokemon.name }}</h2>
-        <p>#{{ pokemon.id.toString().padStart(3, '0') }}</p>
-      </ion-label>
-      <ion-button fill="clear" slot="end" (click)="toggleFavorite(pokemon, $event)">
-        <ion-icon [name]="isFavorite(pokemon.id) ? 'star' : 'star-outline'" [color]="isFavorite(pokemon.id) ? 'warning' : 'medium'"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </ion-list>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let pokemon of pokemons" size="6" size-md="4" size-lg="3">
+        <div class="pokemon-card" [routerLink]="['/details', pokemon.id]">
+          
+          <ion-button fill="clear" class="favorite-button" (click)="toggleFavorite(pokemon, $event)">
+            <ion-icon slot="icon-only" [name]="isFavorite(pokemon.id) ? 'star' : 'star-outline'" [color]="isFavorite(pokemon.id) ? 'warning' : 'medium'"></ion-icon>
+          </ion-button>
+
+          <ion-avatar class="pokemon-avatar">
+            <img [src]="pokemon.image" alt="{{ pokemon.name }} sprite" />
+          </ion-avatar>
+
+          <ion-label class="ion-text-capitalize">
+            <p>#{{ pokemon.id.toString().padStart(3, '0') }}</p>
+            <h2>{{ pokemon.name }}</h2>
+          </ion-label>
+
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <ion-infinite-scroll (ionInfinite)="loadMore($event)">
-    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando mais Pokémon...">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
