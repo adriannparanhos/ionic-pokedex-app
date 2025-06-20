@@ -1,13 +1,12 @@
-// This file is required by karma.conf.js and loads recursively all the .spec and framework files
-
+// Este arquivo é necessário para o Karma. Ele geralmente é importado automaticamente.
 import 'zone.js/testing';
 import { getTestBed } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 
-// First, initialize the Angular testing environment.
+// Primeiro, inicializamos o ambiente de teste do Angular.
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting(),
